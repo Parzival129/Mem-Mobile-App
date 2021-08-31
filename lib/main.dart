@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _speechToText.stop();
     _listening = false;
     setState(() {});
+    _analyze(_lastWords);
   }
 
   void _cancel() async {
@@ -69,10 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  void _analyze(String heard) async {
+    // * Algorithm for detecting keywords and extracting important
+    // * arguments from around the keywords
+    print(heard);
+  }
+
   void _speechResult(SpeechRecognitionResult result) {
     setState(() {
       // * creation of the _lastWords variable
-      // TODO: run detection & extraction algorithm
+      // ? run detection & extraction algorithm
       _lastWords = result.recognizedWords;
     });
   }
