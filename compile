@@ -1,0 +1,7 @@
+#!/bin/bash
+
+flutter analyze
+echo ""
+flutter doctor
+echo ""
+flutter run
