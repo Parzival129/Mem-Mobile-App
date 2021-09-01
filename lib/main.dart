@@ -74,6 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
     print(heard);
+    List words = heard.split(" ");
+    print(words);
   }
 
   void _speechResult(SpeechRecognitionResult result) {
