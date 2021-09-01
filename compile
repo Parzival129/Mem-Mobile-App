@@ -1,5 +1,7 @@
 #!/bin/bash
 
+figlet -f slant "Rememberx" | lolcat
+echo ""
 flutter analyze
 echo ""
 flutter doctor
