@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.csdcorp.app.multi_platform_example">
    <application
-        android:label="multi_platform_example"
+        android:label="SPARQ"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

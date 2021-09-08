@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Speech To Text Demo',
+      title: 'SPARQ',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Speech To Text Demo Home Page'),
+      home: MyHomePage(title: 'Sparq Home Page'),
     );
   }
 }
