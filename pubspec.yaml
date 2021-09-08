@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  splashscreen:
   cupertino_icons: ^1.0.1
   speech_to_text:
     path: ../speech_to_text

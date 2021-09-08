@@ -73,9 +73,26 @@ class _MyHomePageState extends State<MyHomePage> {
   void _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
+    // TODO: Algorithm here!!
     print(heard);
-    List words = heard.split(" ");
+    List<String> words = heard.split(" ");
     print(words);
+
+    for (var i = 0; i < words.length; i++) {
+      //print(words[i]);
+
+      if (words[i].toLowerCase() == "meet") {
+        print("found keyword at: " + i.toString());
+        if (words[i + 2] == "at") {
+          print("meet at: " + words[i + 3]);
+        }
+      } else if (words[i].toLowerCase() == "take") {
+        print("found keyword at: " + i.toString());
+        if (words[i + 3] == "at") {
+          print("take " + words[i + 2] + " at: " + words[i + 4]);
+        }
+      }
+    }
   }
 
   void _speechResult(SpeechRecognitionResult result) {
