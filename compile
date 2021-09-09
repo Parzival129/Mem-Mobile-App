@@ -1,6 +1,6 @@
 #!/bin/bash
 
-figlet -f slant "Rememberx" | lolcat
+figlet -f slant "SPARQ" | lolcat
 echo ""
 flutter analyze
 echo ""
