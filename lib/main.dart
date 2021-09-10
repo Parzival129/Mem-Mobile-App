@@ -82,14 +82,23 @@ class _MyHomePageState extends State<MyHomePage> {
       //print(words[i]);
 
       if (words[i].toLowerCase() == "meet") {
-        print("found keyword at: " + i.toString());
+        print("found 'meet' keyword at: " + i.toString());
         if (words[i + 2] == "at") {
           print("meet at: " + words[i + 3]);
         }
       } else if (words[i].toLowerCase() == "take") {
-        print("found keyword at: " + i.toString());
+        print("found 'take' keyword at: " + i.toString());
         if (words[i + 3] == "at") {
           print("take " + words[i + 2] + " at: " + words[i + 4]);
+        } else if (words[i].toLowerCase() == "go") {
+          print("found 'go' keyword at: " + i.toString());
+          if (words[i + 1] == "to") {
+            if (words[i + 2] == "the") {
+              print("go to the: " + words[i + 3]);
+            } else {
+              print("go to: " + words[i + 2]);
+            }
+          }
         }
       }
     }
