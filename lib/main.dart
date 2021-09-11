@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           words[i + n] != "to" &&
           words[i + n] != "at" &&
           words[i + n] != "new") {
-        return words[i + n];
+        return words[i + n].toString();
       }
     }
   }
@@ -101,12 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
         print("found 'take' keyword at: " + i.toString());
         if (words[i + 3] == "at") {
           print("take " + words[i + 2] + " at: " + words[i + 4]);
-        } 
-      } else if (words[i].toLowerCase() == "go") {
-          print("found 'go' keyword at: " + i.toString());
-          var param = _find(i, words);
-          print("go to: " + param);
         }
+      } else if (words[i].toLowerCase() == "go") {
+        print("found 'go' keyword at: " + i.toString());
+        var params = _find(i, words);
+        print("go to the: " + params);
+      }
     }
   }
 
