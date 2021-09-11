@@ -75,8 +75,19 @@ class _MyHomePageState extends State<MyHomePage> {
       if (words[i + n] != "the" &&
           words[i + n] != "to" &&
           words[i + n] != "at" &&
-          words[i + n] != "new") {
-        return words[i + n].toString();
+          words[i + n] != "new" &&
+          words[i + n] != "your" &&
+          words[i + n] != "me") {
+        //return words[i + n].toString();
+        if (words[i + n + 1] == "at") {
+          if (words[i + n + 3] == "PM") {
+            return words[i + n] + " at " + words[i + n + 2] + " PM";
+          } else if (words[i + n + 3] == "AM") {
+            return words[i + n] + " at " + words[i + n + 2] + " AM";
+          }
+        } else {
+          return words[i + n];
+        }
       }
     }
   }
@@ -94,14 +105,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (words[i].toLowerCase() == "meet") {
         print("found 'meet' keyword at: " + i.toString());
-        if (words[i + 2] == "at") {
-          print("meet at: " + words[i + 3]);
-        }
+        var params = _find(i, words);
+        print("meet: " + params);
       } else if (words[i].toLowerCase() == "take") {
         print("found 'take' keyword at: " + i.toString());
-        if (words[i + 3] == "at") {
-          print("take " + words[i + 2] + " at: " + words[i + 4]);
-        }
+        var params = _find(i, words);
+        print("take: " + params);
       } else if (words[i].toLowerCase() == "go") {
         print("found 'go' keyword at: " + i.toString());
         var params = _find(i, words);
