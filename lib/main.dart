@@ -70,6 +70,17 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  String _find(int i, List words) {
+    for (var n = 1; n < 10000000; n++) {
+      if (words[i + n] != "the" &&
+          words[i + n] != "to" &&
+          words[i + n] != "at" &&
+          words[i + n] != "new") {
+        return words[i + n];
+      }
+    }
+  }
+
   void _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
@@ -90,17 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
         print("found 'take' keyword at: " + i.toString());
         if (words[i + 3] == "at") {
           print("take " + words[i + 2] + " at: " + words[i + 4]);
-        } else if (words[i].toLowerCase() == "go") {
+        } 
+      } else if (words[i].toLowerCase() == "go") {
           print("found 'go' keyword at: " + i.toString());
-          if (words[i + 1] == "to") {
-            if (words[i + 2] == "the") {
-              print("go to the: " + words[i + 3]);
-            } else {
-              print("go to: " + words[i + 2]);
-            }
-          }
+          var param = _find(i, words);
+          print("go to: " + param);
         }
-      }
     }
   }
 
