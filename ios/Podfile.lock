@@ -1,7 +1,5 @@
 PODS:
   - Flutter (1.0.0)
-  - integration_test (0.0.1):
-    - Flutter
   - speech_to_text (0.0.1):
     - Flutter
     - Try
@@ -9,7 +7,6 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
 
 SPEC REPOS:
@@ -19,14 +16,11 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  integration_test:
-    :path: ".symlinks/plugins/integration_test/ios"
   speech_to_text:
     :path: ".symlinks/plugins/speech_to_text/ios"
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  integration_test: 7db6d89f336f671dcbc7563ee27a5b08f6f8aee1
   speech_to_text: b43a7d99aef037bd758ed8e45d79bbac035d2dfe
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
 

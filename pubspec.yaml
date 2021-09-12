@@ -1,5 +1,5 @@
-name: multi_platform_example
-description: A new Flutter project.
+name: SPARQ
+description: A event listener app for people with memory loss conditions.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -12,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  splashscreen:
-  cupertino_icons: ^1.0.1
+  flutter_launcher_icons: "^0.8.0"
+
   speech_to_text:
     path: ../speech_to_text
 
@@ -23,8 +23,6 @@ dev_dependencies:
     sdk: flutter
 
 
-  integration_test:
-    sdk: flutter
 
 flutter:
 
