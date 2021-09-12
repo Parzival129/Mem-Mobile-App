@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -94,7 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     words[i + n + 5] +
                     " " +
                     words[i + n + 6];
-                // ! Error when not including month and day in params
               }
             } catch (rangeError) {
               return words[i + n] +
@@ -110,8 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       }
     }
+    return null;
   }
-//! //////////////////////////////////////////////////////////////
+
+  void readFileAsync() {
+    new File('verbs.txt').readAsString().then((c) => print(c));
+  }
 
   void _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
@@ -121,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print(words);
 
     for (var i = 0; i < words.length; i++) {
-      //print(words[i]);
+      print(words[i]);
       if (words[i].toLowerCase() == "meet") {
         print("found 'meet' keyword at: " + i.toString());
         var params = _find(i, words);
@@ -135,6 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
         var params = _find(i, words);
         print("go to the: " + params);
       }
+
+      // TODO: Incorporate words list
+
     }
   }
 
