@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _speechToText.stop();
     _listening = false;
     setState(() {});
+    // ? calling the primary analyzation algorithm
     _analyze(_lastWords);
   }
 
@@ -69,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _listening = false;
     setState(() {});
   }
+// ! ///////////////////////////////////////////////////
 
   String _find(int i, List words) {
     for (var n = 1; n < 10000000; n++) {
@@ -80,10 +82,28 @@ class _MyHomePageState extends State<MyHomePage> {
           words[i + n] != "me") {
         //return words[i + n].toString();
         if (words[i + n + 1] == "at") {
-          if (words[i + n + 3] == "PM") {
-            return words[i + n] + " at " + words[i + n + 2] + " PM";
-          } else if (words[i + n + 3] == "AM") {
-            return words[i + n] + " at " + words[i + n + 2] + " AM";
+          if (words[i + n + 3] == "PM" || words[i + n + 3] == "AM") {
+            try {
+              if (words[i + n + 4] == "on") {
+                return words[i + n] +
+                    " at " +
+                    words[i + n + 2] +
+                    " " +
+                    words[i + n + 3] +
+                    " on " +
+                    words[i + n + 5] +
+                    " " +
+                    words[i + n + 6];
+                // ! Error when not including month and day in params
+              }
+            } catch (rangeError) {
+              return words[i + n] +
+                  " at " +
+                  words[i + n + 2] +
+                  " " +
+                  words[i + n + 3];
+            }
+            //return words[i + n] + " at " + words[i + n + 2] + " " + words[i + n + 3];
           }
         } else {
           return words[i + n];
@@ -91,18 +111,17 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
   }
+//! //////////////////////////////////////////////////////////////
 
   void _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
-    // TODO: Algorithm here!!
     print(heard);
     List<String> words = heard.split(" ");
     print(words);
 
     for (var i = 0; i < words.length; i++) {
       //print(words[i]);
-
       if (words[i].toLowerCase() == "meet") {
         print("found 'meet' keyword at: " + i.toString());
         var params = _find(i, words);
@@ -119,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+//! //////////////////////////////////////////////////////////////
   void _speechResult(SpeechRecognitionResult result) {
     setState(() {
       // * creation of the _lastWords variable
