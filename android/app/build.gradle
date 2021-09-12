@@ -40,7 +40,11 @@ def keystoreProperties = new Properties()
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+<<<<<<< HEAD
         applicationId "com.csdcorp.app.SPARQ"
+=======
+        applicationId "com.csdcorp.app.multi_platform_example"
+>>>>>>> 26f3a139e6e402505c8d0be12a8973d3ae2e96fb
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
