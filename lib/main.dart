@@ -139,9 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
         var params = _find(i, words);
         print("go to the: " + params);
       }
-
       // TODO: Incorporate words list
-
     }
   }
 
