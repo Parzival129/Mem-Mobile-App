@@ -45,9 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _init() async {
+    print("starting init");
     _ready =
         await _speechToText.initialize(onError: _onError, onStatus: _onStatus);
     setState(() {});
+    print("done");
   }
 
   void _start() async {
