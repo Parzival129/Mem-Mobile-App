@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'dart:convert';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -126,22 +128,34 @@ class _MyHomePageState extends State<MyHomePage> {
     List<String> words = heard.split(" ");
     print(words);
 
-    for (var i = 0; i < words.length; i++) {
-      print(words[i]);
-      if (words[i].toLowerCase() == "meet") {
-        print("found 'meet' keyword at: " + i.toString());
-        var params = _find(i, words);
-        print("meet: " + params);
-      } else if (words[i].toLowerCase() == "take") {
-        print("found 'take' keyword at: " + i.toString());
-        var params = _find(i, words);
-        print("take: " + params);
-      } else if (words[i].toLowerCase() == "go") {
-        print("found 'go' keyword at: " + i.toString());
-        var params = _find(i, words);
-        print("go to the: " + params);
+    // for (var i = 0; i < words.length; i++) {
+    //   print(words[i]);
+    //   if (words[i].toLowerCase() == "meet") {
+    //     print("found 'meet' keyword at: " + i.toString());
+    //     var params = _find(i, words);
+    //     print("meet: " + params);
+    //   } else if (words[i].toLowerCase() == "take") {
+    //     print("found 'take' keyword at: " + i.toString());
+    //     var params = _find(i, words);
+    //     print("take: " + params);
+    //   } else if (words[i].toLowerCase() == "go") {
+    //     print("found 'go' keyword at: " + i.toString());
+    //     var params = _find(i, words);
+    //     print("go to the: " + params);
+    //   }
+    //   // TODO: Incorporate words list
+    // }
+
+    final file = File('verbs.txt');
+    Stream<String> lines =
+        file.openRead().transform(utf8.decoder).transform(LineSplitter());
+    try {
+      await for (var line in lines) {
+        print('$line: ${line.length} characters');
       }
-      // TODO: Incorporate words list
+      print('File is now closed');
+    } catch (e) {
+      print('ERROR: $e');
     }
   }
 
