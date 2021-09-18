@@ -7,6 +7,8 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'dart:convert';
 import 'dart:async';
 
+import 'findParams.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -76,64 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _listening = false;
     setState(() {});
   }
-// ! ///////////////////////////////////////////////////
-
-  String _find(int i, List words) {
-    for (var n = 1; n < 10000000; n++) {
-      if (words[i + n] != "the" &&
-          words[i + n] != "to" &&
-          words[i + n] != "at" &&
-          words[i + n] != "new" &&
-          words[i + n] != "your" &&
-          words[i + n] != "me") {
-        //return words[i + n].toString();
-        if (words[i + n + 1] == "at") {
-          if (words[i + n + 3] == "PM" || words[i + n + 3] == "AM") {
-            try {
-              if (words[i + n + 4] == "on") {
-                return words[i + n] +
-                    " at " +
-                    words[i + n + 2] +
-                    " " +
-                    words[i + n + 3] +
-                    " on " +
-                    words[i + n + 5] +
-                    " " +
-                    words[i + n + 6];
-              }
-            } catch (rangeError) {
-              return words[i + n] +
-                  " at " +
-                  words[i + n + 2] +
-                  " " +
-                  words[i + n + 3];
-            }
-            //return words[i + n] + " at " + words[i + n + 2] + " " + words[i + n + 3];
-          }
-        } else {
-          if (words[i + n + 1] == "PM" || words[i + n + 1] == "AM") {
-            //return words[i + n] + words[i + n + 1];
-
-            try {
-              if (words[i + n + 2] == "on") {
-                return 'at ' +
-                    words[i + n] +
-                    words[i + n + 1] +
-                    " on " +
-                    words[i + n + 3] +
-                    " " +
-                    words[i + n + 4];
-              }
-            } catch (rangeError) {
-              return "at " + words[i + n] + words[i + n + 1];
-            }
-          }
-          return words[i + n];
-        }
-      }
-    }
-    return null;
-  }
 
   void _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
@@ -150,27 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
     //print(verbs);
     print("# of Verbs incorporated: " + verbs.length.toString());
 ////////////////////////
-
     for (var i = 0; i < words.length; i++) {
       print(words[i]);
-      // if (words[i].toLowerCase() == "meet") {
-      //   print("found 'meet' keyword at: " + i.toString());
-      //   var params = _find(i, words);
-      //   print("meet: " + params);
-      // } else if (words[i].toLowerCase() == "take") {
-      //   print("found 'take' keyword at: " + i.toString());
-      //   var params = _find(i, words);
-      //   print("take: " + params);
-      // } else if (words[i].toLowerCase() == "go") {
-      //   print("found 'go' keyword at: " + i.toString());
-      //   var params = _find(i, words);
-      //   print("go to the: " + params);
-      // }
 
       for (var j = 0; j < verbs.length; j++) {
         if (words[i].toLowerCase() == verbs[j]) {
           print("found " + verbs[j] + " keyword at: " + i.toString());
-          var params = _find(i, words);
+          var params = findParams(i, words);
           print(verbs[j] + ": " + params);
         }
       }
