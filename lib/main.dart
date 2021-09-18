@@ -111,18 +111,28 @@ class _MyHomePageState extends State<MyHomePage> {
             //return words[i + n] + " at " + words[i + n + 2] + " " + words[i + n + 3];
           }
         } else {
+          if (words[i + n + 1] == "PM" || words[i + n + 1] == "AM") {
+            //return words[i + n] + words[i + n + 1];
+
+            try {
+              if (words[i + n + 2] == "on") {
+                return 'at ' +
+                    words[i + n] +
+                    words[i + n + 1] +
+                    " on " +
+                    words[i + n + 3] +
+                    " " +
+                    words[i + n + 4];
+              }
+            } catch (rangeError) {
+              return "at " + words[i + n] + words[i + n + 1];
+            }
+          }
           return words[i + n];
         }
       }
     }
     return null;
-  }
-
-  void fetchFileData() async {
-    String responseText;
-    responseText = await rootBundle.loadString('assets/verbs.txt');
-
-    print(responseText);
   }
 
   void _analyze(String heard) async {
@@ -132,23 +142,39 @@ class _MyHomePageState extends State<MyHomePage> {
     List<String> words = heard.split(" ");
     print(words);
 
-    fetchFileData();
+/////////////////////////
+    String responseText;
+    responseText = await rootBundle.loadString('assets/verbs.txt');
+    //print(responseText);
+    List verbs = responseText.split("\n");
+    //print(verbs);
+    print("# of Verbs incorporated: " + verbs.length.toString());
+////////////////////////
 
     for (var i = 0; i < words.length; i++) {
       print(words[i]);
-      if (words[i].toLowerCase() == "meet") {
-        print("found 'meet' keyword at: " + i.toString());
-        var params = _find(i, words);
-        print("meet: " + params);
-      } else if (words[i].toLowerCase() == "take") {
-        print("found 'take' keyword at: " + i.toString());
-        var params = _find(i, words);
-        print("take: " + params);
-      } else if (words[i].toLowerCase() == "go") {
-        print("found 'go' keyword at: " + i.toString());
-        var params = _find(i, words);
-        print("go to the: " + params);
+      // if (words[i].toLowerCase() == "meet") {
+      //   print("found 'meet' keyword at: " + i.toString());
+      //   var params = _find(i, words);
+      //   print("meet: " + params);
+      // } else if (words[i].toLowerCase() == "take") {
+      //   print("found 'take' keyword at: " + i.toString());
+      //   var params = _find(i, words);
+      //   print("take: " + params);
+      // } else if (words[i].toLowerCase() == "go") {
+      //   print("found 'go' keyword at: " + i.toString());
+      //   var params = _find(i, words);
+      //   print("go to the: " + params);
+      // }
+
+      for (var j = 0; j < verbs.length; j++) {
+        if (words[i].toLowerCase() == verbs[j]) {
+          print("found " + verbs[j] + " keyword at: " + i.toString());
+          var params = _find(i, words);
+          print(verbs[j] + ": " + params);
+        }
       }
+
       // TODO: Incorporate words list
     }
   }
