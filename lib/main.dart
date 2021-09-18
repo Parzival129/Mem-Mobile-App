@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -117,8 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return null;
   }
 
-  void readFileAsync() {
-    new File('verbs.txt').readAsString().then((c) => print(c));
+  void fetchFileData() async {
+    String responseText;
+    responseText = await rootBundle.loadString('assets/verbs.txt');
+
+    print(responseText);
   }
 
   void _analyze(String heard) async {
@@ -128,34 +132,24 @@ class _MyHomePageState extends State<MyHomePage> {
     List<String> words = heard.split(" ");
     print(words);
 
-    // for (var i = 0; i < words.length; i++) {
-    //   print(words[i]);
-    //   if (words[i].toLowerCase() == "meet") {
-    //     print("found 'meet' keyword at: " + i.toString());
-    //     var params = _find(i, words);
-    //     print("meet: " + params);
-    //   } else if (words[i].toLowerCase() == "take") {
-    //     print("found 'take' keyword at: " + i.toString());
-    //     var params = _find(i, words);
-    //     print("take: " + params);
-    //   } else if (words[i].toLowerCase() == "go") {
-    //     print("found 'go' keyword at: " + i.toString());
-    //     var params = _find(i, words);
-    //     print("go to the: " + params);
-    //   }
-    //   // TODO: Incorporate words list
-    // }
+    fetchFileData();
 
-    final file = File('verbs.txt');
-    Stream<String> lines =
-        file.openRead().transform(utf8.decoder).transform(LineSplitter());
-    try {
-      await for (var line in lines) {
-        print('$line: ${line.length} characters');
+    for (var i = 0; i < words.length; i++) {
+      print(words[i]);
+      if (words[i].toLowerCase() == "meet") {
+        print("found 'meet' keyword at: " + i.toString());
+        var params = _find(i, words);
+        print("meet: " + params);
+      } else if (words[i].toLowerCase() == "take") {
+        print("found 'take' keyword at: " + i.toString());
+        var params = _find(i, words);
+        print("take: " + params);
+      } else if (words[i].toLowerCase() == "go") {
+        print("found 'go' keyword at: " + i.toString());
+        var params = _find(i, words);
+        print("go to the: " + params);
       }
-      print('File is now closed');
-    } catch (e) {
-      print('ERROR: $e');
+      // TODO: Incorporate words list
     }
   }
 
