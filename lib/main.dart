@@ -104,12 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
           print(verbs[j] + ": " + params);
         }
       }
-
       // TODO: Incorporate words list
     }
   }
 
-//! //////////////////////////////////////////////////////////////
   void _speechResult(SpeechRecognitionResult result) {
     setState(() {
       // * creation of the _lastWords variable

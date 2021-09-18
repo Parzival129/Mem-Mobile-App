@@ -3,11 +3,14 @@ String findParams(int i, List words) {
     if (words[i + n] != "the" &&
         words[i + n] != "to" &&
         words[i + n] != "at" &&
+        words[i + n] != "it" &&
         words[i + n] != "new" &&
         words[i + n] != "your" &&
+        words[i + n] != "that" &&
         words[i + n] != "me") {
       //return words[i + n].toString();
-      if (words[i + n + 1] == "at") {
+      print("THE WORD IS: " + words[i + n]);
+      if (words[i + n + 1] == "at" || words[i + n + 1] == "it") {
         if (words[i + n + 3] == "PM" || words[i + n + 3] == "AM") {
           try {
             if (words[i + n + 4] == "on") {
@@ -32,6 +35,7 @@ String findParams(int i, List words) {
         }
       } else if (words[i + n + 1] == "PM" || words[i + n + 1] == "AM") {
         //return words[i + n] + words[i + n + 1];
+        print("HEREEE");
         try {
           if (words[i + n + 2] == "on") {
             return 'at ' +
@@ -45,17 +49,28 @@ String findParams(int i, List words) {
         } catch (rangeError) {
           return "at " + words[i + n] + words[i + n + 1];
         }
-      } else if (words[i + n + 1] == "on") {
-        if (words[i + n + 2] == "Monday" ||
-            words[i + n + 2] == "Tuesday" ||
-            words[i + n + 2] == "Wednesday" ||
-            words[i + n + 2] == "Thursday" ||
-            words[i + n + 2] == "Friday" ||
-            words[i + n + 2] == "Saturday" ||
-            words[i + n + 2] == "Sunday") {
-          return "on " + words[i + n + 2];
+      } else if (words[i + n] == "on") {
+        // ! for "meet me at the airport at 5pm, it is detecting airport as the word and not on"
+        // ! gotta have it look for 'on' after airport
+        // ? Range error exception could maybe nbe fix? like we did last time
+        if (words[i + n + 1] == "Monday" ||
+            words[i + n + 1] == "Tuesday" ||
+            words[i + n + 1] == "Wednesday" ||
+            words[i + n + 1] == "Thursday" ||
+            words[i + n + 1] == "Friday" ||
+            words[i + n + 1] == "Saturday" ||
+            words[i + n + 1] == "Sunday") {
+          print("asdlkjasldkj");
+          if (words[i + n + 2] == "at") {
+            return "on " + words[i + n + 1] + " at " + words[i + n + 3];
+          }
+          return "on " + words[i + n + 1];
         } else {
-          return "on " + words[i + n + 2] + " " + words[i + n + 3];
+          return "on " + words[i + n + 1] + " " + words[i + n + 2];
+        }
+      } else if (words[i + n] != "on") {
+        if (words[i + n + 1] == "on") {
+          print("hey!!!!!!!!!!x");
         }
       }
       return words[i + n];
