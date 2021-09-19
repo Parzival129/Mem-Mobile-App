@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
-    print(heard);
+    List reminders = [];
     List<String> words = heard.split(" ");
     print(words);
 
@@ -95,12 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
     print("# of Verbs incorporated: " + verbs.length.toString());
 ////////////////////////
     for (var i = 0; i < words.length; i++) {
-      print(words[i]);
-
       for (var j = 0; j < verbs.length; j++) {
         if (words[i].toLowerCase() == verbs[j]) {
           print("found " + verbs[j] + " keyword at: " + i.toString());
           var params = findParams(i, words);
+          var reminder = verbs[j] + ": " + params;
+          reminders.add(reminder);
           print(verbs[j] + ": " + params);
         }
       }

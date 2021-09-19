@@ -35,7 +35,6 @@ String findParams(int i, List words) {
         }
       } else if (words[i + n + 1] == "PM" || words[i + n + 1] == "AM") {
         //return words[i + n] + words[i + n + 1];
-        print("HEREEE");
         try {
           if (words[i + n + 2] == "on") {
             return 'at ' +
@@ -47,30 +46,50 @@ String findParams(int i, List words) {
                 words[i + n + 4];
           }
         } catch (rangeError) {
+          print("YO");
           return "at " + words[i + n] + words[i + n + 1];
         }
       } else if (words[i + n] == "on") {
-        // ! for "meet me at the airport at 5pm, it is detecting airport as the word and not on"
-        // ! gotta have it look for 'on' after airport
         // ? Range error exception could maybe nbe fix? like we did last time
-        if (words[i + n + 1] == "Monday" ||
-            words[i + n + 1] == "Tuesday" ||
-            words[i + n + 1] == "Wednesday" ||
-            words[i + n + 1] == "Thursday" ||
-            words[i + n + 1] == "Friday" ||
-            words[i + n + 1] == "Saturday" ||
-            words[i + n + 1] == "Sunday") {
-          print("asdlkjasldkj");
-          if (words[i + n + 2] == "at") {
-            return "on " + words[i + n + 1] + " at " + words[i + n + 3];
+        try {
+          if (words[i + n + 1] == "Monday" ||
+              words[i + n + 1] == "Tuesday" ||
+              words[i + n + 1] == "Wednesday" ||
+              words[i + n + 1] == "Thursday" ||
+              words[i + n + 1] == "Friday" ||
+              words[i + n + 1] == "Saturday" ||
+              words[i + n + 1] == "Sunday") {
+            if (words[i + n + 2] == "at") {
+              return "on " + words[i + n + 1] + " at " + words[i + n + 3];
+            }
+            return "on " + words[i + n + 1];
+          } else {
+            return "on " + words[i + n + 1] + " " + words[i + n + 2];
           }
+        } catch (rangeError) {
           return "on " + words[i + n + 1];
-        } else {
-          return "on " + words[i + n + 1] + " " + words[i + n + 2];
         }
       } else if (words[i + n] != "on") {
-        if (words[i + n + 1] == "on") {
-          print("hey!!!!!!!!!!x");
+        try {
+          if (words[i + n + 1] == "on") {
+            if (words[i + n + 2] == "January" ||
+                words[i + n + 2] == "February" ||
+                words[i + n + 2] == "March" ||
+                words[i + n + 2] == "April" ||
+                words[i + n + 2] == "May" ||
+                words[i + n + 2] == "June" ||
+                words[i + n + 2] == "July" ||
+                words[i + n + 2] == "August" ||
+                words[i + n + 2] == "September" ||
+                words[i + n + 2] == "October" ||
+                words[i + n + 2] == "November" ||
+                words[i + n + 2] == "December") {
+              return "on " + words[i + n + 2] + " " + words[i + n + 3];
+            }
+            return words[i + n] + " on " + words[i + n + 2];
+          }
+        } catch (rangeError) {
+          return "on " + words[i + n + 1];
         }
       }
       return words[i + n];
