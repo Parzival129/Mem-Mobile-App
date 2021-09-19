@@ -79,10 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  void _analyze(String heard) async {
+  Future<List> _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
-    List reminders = [];
+    List rem = [];
     List<String> words = heard.split(" ");
     print(words);
 
@@ -99,13 +99,14 @@ class _MyHomePageState extends State<MyHomePage> {
         if (words[i].toLowerCase() == verbs[j]) {
           print("found " + verbs[j] + " keyword at: " + i.toString());
           var params = findParams(i, words);
-          var reminder = verbs[j] + ": " + params;
-          reminders.add(reminder);
+          var rems = verbs[j] + ": " + params;
+          rem.add(rems);
           print(verbs[j] + ": " + params);
         }
       }
       // TODO: Incorporate words list
     }
+    return rem;
   }
 
   void _speechResult(SpeechRecognitionResult result) {
