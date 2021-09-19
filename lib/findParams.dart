@@ -7,7 +7,9 @@ String findParams(int i, List words) {
         words[i + n] != "new" &&
         words[i + n] != "your" &&
         words[i + n] != "that" &&
+        words[i + n] != "us" &&
         words[i + n] != "me") {
+      // TODO: Put alll this into a if statement to see if a name or subject is after verb
       //return words[i + n].toString();
       print("THE WORD IS: " + words[i + n]);
       if (words[i + n + 1] == "at" || words[i + n + 1] == "it") {

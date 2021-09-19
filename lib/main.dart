@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'dart:convert';
 import 'dart:async';
 
 import 'findParams.dart';
@@ -104,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
           print(verbs[j] + ": " + params);
         }
       }
-      // TODO: Incorporate words list
     }
     return rem;
   }
