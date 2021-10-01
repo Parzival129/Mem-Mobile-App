@@ -9,8 +9,10 @@ String findParams(int i, List words) {
         words[i + n] != "that" &&
         words[i + n] != "us" &&
         words[i + n] != "me") {
+      // !STOP HERE!!!!!!!
       // TODO: Put alll this into a if statement to see if a name or subject is after verb
       //return words[i + n].toString();
+
       print("THE WORD IS: " + words[i + n]);
       if (words[i + n + 1] == "at" || words[i + n + 1] == "it") {
         if (words[i + n + 3] == "PM" || words[i + n + 3] == "AM") {
@@ -94,7 +96,21 @@ String findParams(int i, List words) {
           return "on " + words[i + n + 1];
         }
       }
-      return words[i + n];
+      List name = [];
+      try {
+        for (var l = i + n; l < words.length; l++) {
+          if (words[l] != "on" && words[l] != "at") {
+            name.add(words[l]);
+          } else {
+            var rest = findParams(l, words);
+            return name.join(" ") + " " + rest;
+          }
+        }
+
+        return name.toString();
+      } catch (RangeError) {
+        return name.toString();
+      }
     }
   }
   return null;
