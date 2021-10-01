@@ -111,7 +111,7 @@ String findParams(int i, List words) {
         }
 
         return name.toString();
-      } catch (RangeError) {
+      } catch (rangeError) {
         return name.toString();
       }
     }
