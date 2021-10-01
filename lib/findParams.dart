@@ -1,5 +1,7 @@
+// Main analyzation function for picking oiut different phrases for scheduling
 String findParams(int i, List words) {
   for (var n = 1; n < 10000000; n++) {
+    // ignore non relevent words
     if (words[i + n] != "the" &&
         words[i + n] != "to" &&
         words[i + n] != "at" &&
@@ -14,6 +16,7 @@ String findParams(int i, List words) {
       //return words[i + n].toString();
 
       print("THE WORD IS: " + words[i + n]);
+      // If the word after the subject is at (or it since it can sometimes be missheard as it)
       if (words[i + n + 1] == "at" || words[i + n + 1] == "it") {
         if (words[i + n + 3] == "PM" || words[i + n + 3] == "AM") {
           try {

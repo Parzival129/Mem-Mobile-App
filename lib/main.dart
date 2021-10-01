@@ -1,3 +1,4 @@
+// Import important dependencies
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:speech_to_text/speech_recognition_error.dart';
@@ -5,12 +6,15 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'dart:async';
 
+// Imoprt findParams function
 import 'findParams.dart';
 
+// Main function for running app
 void main() {
   runApp(MyApp());
 }
 
+// MyApp widget that directs to homepage
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -47,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  // Main functions for manipulating speech to text state
   void _init() async {
     print("starting init");
     _ready =
@@ -77,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  // analyzation algorithm to run on all heard text
   Future<List> _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
@@ -114,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // main homepage UI construction
   @override
   Widget build(BuildContext context) {
     return Scaffold(
