@@ -102,7 +102,7 @@ String findParams(int i, List words) {
           if (words[l] != "on" && words[l] != "at") {
             name.add(words[l]);
           } else {
-            var rest = findParams(l, words);
+            var rest = findParams(l - 1, words);
             return name.join(" ") + " " + rest;
           }
         }
