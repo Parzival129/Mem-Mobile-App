@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastWords = '';
   String _lastStatus = '';
   String _lastError = '';
+  List _reminders = [];
 
   @override
   void initState() {
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<List> _analyze(String heard) async {
     // * Algorithm for detecting keywords and extracting important
     // * arguments from around the keywords
-    List rem = [];
+    List _rem = [];
     List<String> words = heard.split(" ");
     print(words);
 
@@ -104,12 +105,21 @@ class _MyHomePageState extends State<MyHomePage> {
           print("found " + verbs[j] + " keyword at: " + i.toString());
           var params = findParams(i, words);
           var rems = verbs[j] + ": " + params;
-          rem.add(rems);
+          _rem.add(rems);
           print(verbs[j] + ": " + params);
+          print("REM: ");
+          print(_rem);
         }
       }
     }
-    return rem;
+
+    return _rem;
+  }
+
+  void reminders() {
+    setState(() {
+      _reminders = [];
+    });
   }
 
   void _speechResult(SpeechRecognitionResult result) {
@@ -163,6 +173,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Divider(),
                   Text(
                     'Words: $_lastWords',
+                  ),
+                  Divider(),
+                  Text(
+                    'Reminders: $_reminders',
                   ),
                 ],
               ),
