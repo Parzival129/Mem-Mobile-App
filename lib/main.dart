@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastWords = '';
   String _lastStatus = '';
   String _lastError = '';
-  List _reminders = [];
+  String _reminders = '';
 
   @override
   void initState() {
@@ -74,7 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _listening = false;
     setState(() {});
     // ? calling the primary analyzation algorithm
-    _analyze(_lastWords);
+    var reminder = await _analyze(_lastWords);
+    _reminders = reminder.toString();
+    setState(() {});
   }
 
   void _cancel() async {
@@ -114,12 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return _rem;
-  }
-
-  void reminders() {
-    setState(() {
-      _reminders = [];
-    });
   }
 
   void _speechResult(SpeechRecognitionResult result) {
