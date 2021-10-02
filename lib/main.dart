@@ -108,11 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
         if (words[i].toLowerCase() == verbs[j]) {
           print("found " + verbs[j] + " keyword at: " + i.toString());
           var params = findParams(i, words);
-          var rems = verbs[j] + ": " + params;
-          _rem.add(rems);
-          print(verbs[j] + ": " + params);
-          print("REM: ");
-          print(_rem);
+          if (params != "ERROR_OCCURED") {
+            var rems = verbs[j] + ": " + params;
+            _rem.add(rems);
+            print(verbs[j] + ": " + params);
+            print("REM: ");
+            print(_rem);
+          }
         }
       }
     }

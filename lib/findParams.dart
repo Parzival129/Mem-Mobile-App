@@ -107,8 +107,12 @@ String findParams(int i, List words) {
             } else if (words[l] == "and") {
               return name.join(" ");
             } else {
-              var rest = findParams(l, words);
-              return name.join(" ") + " " + rest;
+              try {
+                var rest = findParams(l, words);
+                return name.join(" ") + " " + rest;
+              } catch (rangeError) {
+                return name.join(" ");
+              }
             }
           }
 
@@ -120,6 +124,7 @@ String findParams(int i, List words) {
     }
     return null;
   } catch (e) {
-    return "ERROR! Please try again";
+    print("ERROR OCCURED! - " + e.toString());
+    return "ERROR_OCCURED";
   }
 }
