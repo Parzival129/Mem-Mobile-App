@@ -351,7 +351,6 @@ forecast
 forego
 foresee
 foretell
-forget
 forgive
 form
 formulate
@@ -494,7 +493,6 @@ lie
 lifted
 light
 lighten
-like
 list
 listen
 live
@@ -621,7 +619,6 @@ play
 plead
 please
 plug
-point
 poke
 polish
 pop
@@ -751,7 +748,6 @@ sail
 satisfy
 save
 saw
-say
 scare
 scatter
 schedule

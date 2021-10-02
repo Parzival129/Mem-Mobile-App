@@ -100,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List verbs = responseText.split("\n");
     //print(verbs);
     print("# of Verbs incorporated: " + verbs.length.toString());
+
 ////////////////////////
     for (var i = 0; i < words.length; i++) {
       for (var j = 0; j < verbs.length; j++) {
