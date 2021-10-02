@@ -1,4 +1,6 @@
 PODS:
+  - add_2_calendar (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - speech_to_text (0.0.1):
     - Flutter
@@ -6,6 +8,7 @@ PODS:
   - Try (2.1.1)
 
 DEPENDENCIES:
+  - add_2_calendar (from `.symlinks/plugins/add_2_calendar/ios`)
   - Flutter (from `Flutter`)
   - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
 
@@ -14,12 +17,15 @@ SPEC REPOS:
     - Try
 
 EXTERNAL SOURCES:
+  add_2_calendar:
+    :path: ".symlinks/plugins/add_2_calendar/ios"
   Flutter:
     :path: Flutter
   speech_to_text:
     :path: ".symlinks/plugins/speech_to_text/ios"
 
 SPEC CHECKSUMS:
+  add_2_calendar: e9d68636aed37fb18e12f5a3d74c2e0589487af0
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   speech_to_text: b43a7d99aef037bd758ed8e45d79bbac035d2dfe
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
