@@ -13,7 +13,6 @@ String findParams(int i, List words) {
           words[i + n] != "us" &&
           words[i + n] != "me") {
         // !STOP HERE!!!!!!!
-        // TODO: Put alll this into a if statement to see if a name or subject is after verb
         //return words[i + n].toString();
 
         print("THE WORD IS: " + words[i + n]);
@@ -113,9 +112,9 @@ String findParams(int i, List words) {
             }
           }
 
-          return name.toString();
+          return name.join(" ");
         } catch (rangeError) {
-          return name.toString();
+          return name.join(" ");
         }
       }
     }
