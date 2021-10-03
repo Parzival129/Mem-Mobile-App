@@ -6,7 +6,7 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'dart:async';
 
-// Imoprt findParams function
+// Import findParams function
 import 'findParams.dart';
 
 // Main function for running app
@@ -117,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       }
     }
-
     return _rem;
   }
 
