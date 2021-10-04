@@ -100,8 +100,16 @@ String findParams(int i, List words) {
           } catch (rangeError) {
             return "on " + words[i + n + 1];
           }
-        } else if (words[i + n - 1] == "to") {
-          return "bruh";
+        } else if (words[i + n] == "around" || words[i + n] == "precisley") {
+          if (words[i + n + 2] == "PM" || words[i + n + 2] == "AM") {
+            return words[i + n] +
+                " " +
+                words[i + n + 1] +
+                " " +
+                words[i + n + 2];
+          } else {
+            return words[i + n] + words[i + n + 1] + words[i + n + 2];
+          }
         }
         List name = [];
         try {
