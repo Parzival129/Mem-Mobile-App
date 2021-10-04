@@ -107,12 +107,26 @@ class _MyHomePageState extends State<MyHomePage> {
         if (words[i].toLowerCase() == verbs[j]) {
           print("found " + verbs[j] + " keyword at: " + i.toString());
           var params = findParams(i, words);
-          if (params != "ERROR_OCCURED") {
-            var rems = verbs[j] + ": " + params;
-            _rem.add(rems);
-            print(verbs[j] + ": " + params);
-            print("REM: ");
-            print(_rem);
+
+          if (words[i - 1].toLowerCase() == "don't" ||
+              words[i - 2].toLowerCase() == "don't" ||
+              words[i - 3].toLowerCase() == "don't" ||
+              words[i - 4].toLowerCase() == "don't") {
+            if (params != "ERROR_OCCURED") {
+              var rems = "Don't " + verbs[j] + ": " + params;
+              _rem.add(rems);
+              print("Don't " + verbs[j] + ": " + params);
+              print("REM: ");
+              print(_rem);
+            }
+          } else {
+            if (params != "ERROR_OCCURED") {
+              var rems = verbs[j] + ": " + params;
+              _rem.add(rems);
+              print(verbs[j] + ": " + params);
+              print("REM: ");
+              print(_rem);
+            }
           }
         }
       }
