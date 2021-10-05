@@ -9,6 +9,9 @@ import 'dart:async';
 // Import findParams function
 import 'findParams.dart';
 
+// Import reminders page
+import 'reminders.dart';
+
 // Main function for running app
 void main() {
   runApp(MyApp());
@@ -16,6 +19,26 @@ void main() {
 
 // MyApp widget that directs to homepage
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SPARQ',
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.red,
+        textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline6: TextStyle(fontSize: 36.0),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),
+      ),
+      home: MyHomePage(title: "SPARQ"),
+    );
+  }
+}
+
+class NewApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -52,8 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastStatus = '';
   String _lastError = '';
   String _reminders = '';
+  List _remindersList = [];
 
-  String talker;
+  String talker = "Unkown";
   String text = "Unknown";
 
   void _setText() {
@@ -90,8 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _listening = false;
     setState(() {});
     // ? calling the primary analyzation algorithm
-    var reminder = await _analyze(_lastWords);
-    _reminders = reminder.toString();
+    _remindersList = await _analyze(_lastWords);
+    _reminders = _remindersList.toString();
+
     setState(() {});
   }
 
@@ -228,13 +253,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Words: $_lastWords',
                   ),
-                  Divider(),
-                  Text(
-                    'Reminders: $_reminders',
-                  ),
                 ],
               ),
             ),
+            ElevatedButton(
+              child: new Text("Reminders"),
+              onPressed: () {
+                var route = new MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      new NextPage(value: _remindersList),
+                );
+                Navigator.of(context).push(route);
+              },
+            )
           ],
         ),
       ),
