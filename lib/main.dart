@@ -47,6 +47,16 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastError = '';
   String _reminders = '';
 
+  String talker;
+  String text = "Unknown";
+
+  void _setText() {
+    setState(() {
+      text = talker;
+      print("Talker set too: " + talker);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -113,26 +123,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 words[i - 3].toLowerCase() == "don't" ||
                 words[i - 4].toLowerCase() == "don't") {
               if (params != "ERROR_OCCURED") {
-                var rems = "Don't " + verbs[j] + ": " + params;
+                var rems = talker + ": " + "Don't " + verbs[j] + ": " + params;
                 _rem.add(rems);
-                print("Don't " + verbs[j] + ": " + params);
+                print(talker + ": " + "Don't " + verbs[j] + ": " + params);
                 print("REM: ");
                 print(_rem);
               }
             } else {
               if (params != "ERROR_OCCURED") {
-                var rems = verbs[j] + ": " + params;
+                var rems = talker + ": " + verbs[j] + ": " + params;
                 _rem.add(rems);
-                print(verbs[j] + ": " + params);
+                print(talker + ": " + verbs[j] + ": " + params);
                 print("REM: ");
                 print(_rem);
               }
             }
           } catch (rangeError) {
             if (params != "ERROR_OCCURED") {
-              var rems = verbs[j] + ": " + params;
+              var rems = talker + ": " + verbs[j] + ": " + params;
               _rem.add(rems);
-              print(verbs[j] + ": " + params);
+              print(talker + ": " + verbs[j] + ": " + params);
               print("REM: ");
               print(_rem);
             }
@@ -178,6 +188,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text('Cancel')),
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                decoration:
+                    InputDecoration(labelText: 'Who are you talking too?'),
+                onChanged: (value) => talker = value,
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            ElevatedButton(
+              onPressed: _setText,
+              child: Text('Submit'),
+            ),
+            // changes in text
+            // are shown here
             Expanded(
               child: Column(
                 children: [
