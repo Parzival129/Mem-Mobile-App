@@ -77,8 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _reminders = '';
   List _remindersList = [];
 
-  String talker = "Unkown";
-  String text = "Unknown";
+  String talker = "";
+  String text = "";
 
   void _setText() {
     setState(() {
@@ -154,26 +154,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 words[i - 3].toLowerCase() == "don't" ||
                 words[i - 4].toLowerCase() == "don't") {
               if (params != "ERROR_OCCURED") {
-                var rems = talker + ": " + "Don't " + verbs[j] + ": " + params;
+                var rems = talker + "> " + "Don't " + verbs[j] + ": " + params;
                 _rem.add(rems);
-                print(talker + ": " + "Don't " + verbs[j] + ": " + params);
+                print(talker + "> " + "Don't " + verbs[j] + ": " + params);
                 print("REM: ");
                 print(_rem);
               }
             } else {
               if (params != "ERROR_OCCURED") {
-                var rems = talker + ": " + verbs[j] + ": " + params;
+                var rems = talker + "> " + verbs[j] + ": " + params;
                 _rem.add(rems);
-                print(talker + ": " + verbs[j] + ": " + params);
+                print(talker + "> " + verbs[j] + ": " + params);
                 print("REM: ");
                 print(_rem);
               }
             }
           } catch (rangeError) {
             if (params != "ERROR_OCCURED") {
-              var rems = talker + ": " + verbs[j] + ": " + params;
+              var rems = talker + "> " + verbs[j] + ": " + params;
               _rem.add(rems);
-              print(talker + ": " + verbs[j] + ": " + params);
+              print(talker + "> " + verbs[j] + ": " + params);
               print("REM: ");
               print(_rem);
             }
