@@ -16,7 +16,9 @@ class _NextPageState extends State<NextPage> {
       appBar: new AppBar(
         title: new Text("Reminders"),
       ),
-      body: Text(widget.value.toString()),
+      body: ListView(
+        children: widget.value.map((e) => Text(e)).toList(),
+      ),
     );
   }
 }
