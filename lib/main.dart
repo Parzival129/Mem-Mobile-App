@@ -13,6 +13,9 @@ import 'findParams.dart';
 // Import reminders page
 import 'reminders.dart';
 
+// Import transcripts page
+import 'transcripts.dart';
+
 // Main function for running app
 void main() {
   runApp(MyApp());
@@ -76,9 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastStatus = '';
   String _lastError = '';
   List _reminders = [];
+  String _transcript = "";
   bool _isLoading = false;
   List<String> _remindersList = [];
   List<String> _rems = [];
+
+  List<String> _transcriptsList = [];
+  List<String> _trans = [];
 
   String talker = "";
   String text = "";
@@ -98,11 +105,27 @@ class _MyHomePageState extends State<MyHomePage> {
     return true;
   }
 
+  _saveListTrans(list) async {
+    SharedPreferences prefstrans = await SharedPreferences.getInstance();
+
+    prefstrans.setStringList("keyTrans", list);
+
+    return true;
+  }
+
   _getSavedList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList("key") != null)
       _remindersList = prefs.getStringList("key");
-    // await prefs.clear();
+    // await prefs.clear
+    setState(() {});
+  }
+
+  _getSavedListTrans() async {
+    SharedPreferences prefstrans = await SharedPreferences.getInstance();
+    if (prefstrans.getStringList("keyTrans") != null)
+      _transcriptsList = prefstrans.getStringList("keyTrans");
+    // await prefs.clear
     setState(() {});
   }
 
@@ -113,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _isLoading = true;
     });
     _getSavedList();
-
+    _getSavedListTrans();
     setState(() {
       _isLoading = false;
     });
@@ -141,7 +164,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // ? calling the primary analyzation algorithm
     _reminders = await _analyze(_lastWords);
     _remindersList.addAll(_reminders.cast<String>());
+
+    _transcript = _lastWords;
+    _transcriptsList.add(_transcript);
     _saveList(_remindersList);
+    _saveListTrans(_transcriptsList);
     setState(() {});
   }
 
@@ -260,21 +287,35 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: [
                   Divider(),
-                  Text(
-                    'Words: $_lastWords',
-                  ),
+                  Text('$_lastWords',
+                      style: TextStyle(height: 5, fontSize: 20)),
                 ],
               ),
             ),
-            ElevatedButton(
-              child: new Text("Reminders"),
-              onPressed: () {
-                var route = new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new NextPage(value: _remindersList),
-                );
-                Navigator.of(context).push(route);
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  child: new Text("Reminders"),
+                  onPressed: () {
+                    var route = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new NextPage(value: _remindersList),
+                    );
+                    Navigator.of(context).push(route);
+                  },
+                ),
+                ElevatedButton(
+                  child: new Text("Transcripts"),
+                  onPressed: () {
+                    var route = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new NextPageTrans(value: _transcriptsList),
+                    );
+                    Navigator.of(context).push(route);
+                  },
+                )
+              ],
             )
           ],
         ),

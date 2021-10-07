@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'main.dart';
 
 class NextPage extends StatefulWidget {
   final List value;
@@ -37,7 +39,8 @@ class _NextPageState extends State<NextPage> {
             return Card(
                 child: ListTile(
                     title: Text(widget.value[index].replaceAll("> ", "")),
-                    trailing: Icon(Icons.access_time)));
+                    trailing: Icon(Icons.access_time),
+                    onTap: () => widget.value.removeAt(index)));
           }),
     );
   }
