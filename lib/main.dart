@@ -117,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList("key") != null)
       _remindersList = prefs.getStringList("key");
-    // await prefs.clear
     setState(() {});
   }
 
@@ -125,8 +124,15 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefstrans = await SharedPreferences.getInstance();
     if (prefstrans.getStringList("keyTrans") != null)
       _transcriptsList = prefstrans.getStringList("keyTrans");
-    // await prefs.clear
     setState(() {});
+  }
+
+  _eraseAll() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefstrans = await SharedPreferences.getInstance();
+
+    prefs.clear();
+    prefstrans.clear();
   }
 
   @override
@@ -168,7 +174,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _transcript = _lastWords;
     _transcriptsList.add(_transcript);
     _saveList(_remindersList);
-    _saveListTrans(_transcriptsList);
+    if (_lastWords != "") {
+      _saveListTrans(_transcriptsList);
+    }
     setState(() {});
   }
 

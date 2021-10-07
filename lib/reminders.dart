@@ -38,7 +38,7 @@ class _NextPageState extends State<NextPage> {
           itemBuilder: (context, index) {
             return Card(
                 child: ListTile(
-                    title: Text(widget.value[index].replaceAll("> ", "")),
+                    title: Text(widget.value[index].replaceAll(">", "")),
                     trailing: Icon(Icons.access_time),
                     onTap: () => widget.value.removeAt(index)));
           }),
