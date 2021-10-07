@@ -34,7 +34,10 @@ class _NextPageState extends State<NextPage> {
       body: ListView.builder(
           itemCount: widget.value.length,
           itemBuilder: (context, index) {
-            return Card(child: ListTile(title: Text(widget.value[index])));
+            return Card(
+                child: ListTile(
+                    title: Text(widget.value[index]),
+                    trailing: Icon(Icons.access_time)));
           }),
     );
   }
