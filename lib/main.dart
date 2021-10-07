@@ -102,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList("key") != null)
       _remindersList = prefs.getStringList("key");
+    // await prefs.clear();
     setState(() {});
   }
 
@@ -268,7 +269,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               child: new Text("Reminders"),
               onPressed: () {
-                _getSavedList();
                 var route = new MaterialPageRoute(
                   builder: (BuildContext context) =>
                       new NextPage(value: _remindersList),
