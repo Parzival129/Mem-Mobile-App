@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 // Import findParams function
@@ -74,8 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastWords = '';
   String _lastStatus = '';
   String _lastError = '';
-  String _reminders = '';
+  List _reminders = [];
+  bool _isLoading = false;
   List _remindersList = [];
+  List<String> _rems = [];
 
   String talker = "";
   String text = "";
@@ -83,25 +86,45 @@ class _MyHomePageState extends State<MyHomePage> {
   void _setText() {
     setState(() {
       text = talker;
-      print("Talker set too: " + talker);
+      print("Talker set to: " + talker);
     });
+  }
+
+  _saveList(list) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setStringList("key", list);
+
+    return true;
+  }
+
+  _getSavedList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getStringList("key") != null) _rems = prefs.getStringList("key");
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _isLoading = true;
+    });
+    _getSavedList();
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   // Main functions for manipulating speech to text state
-  void _init() async {
+
+  void _start() async {
     print("starting init");
     _ready =
         await _speechToText.initialize(onError: _onError, onStatus: _onStatus);
     setState(() {});
     print("done");
-  }
-
-  void _start() async {
     print("starting");
     await _speechToText.listen(onResult: _speechResult);
     _listening = true;
@@ -114,9 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _listening = false;
     setState(() {});
     // ? calling the primary analyzation algorithm
-    _remindersList = await _analyze(_lastWords);
-    _reminders = _remindersList.toString();
-
+    _reminders = await _analyze(_lastWords);
+    _rems = (_remindersList + _reminders).cast<String>();
+    _saveList(_rems);
     setState(() {});
   }
 
@@ -206,12 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                    onPressed: _ready ? null : _init,
-                    child: Text('Initialize')),
-                TextButton(
-                    onPressed: _ready && !_listening ? _start : null,
-                    child: Text('Listen')),
+                TextButton(onPressed: _start, child: Text('Listen')),
                 TextButton(
                     onPressed: _listening ? _stop : null, child: Text('Stop')),
                 TextButton(
@@ -223,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(15),
               child: TextField(
                 decoration:
-                    InputDecoration(labelText: 'Who are you talking too?'),
+                    InputDecoration(labelText: 'Who are you talking to?'),
                 onChanged: (value) => talker = value,
               ),
             ),
@@ -241,16 +259,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Divider(),
                   Text(
-                    'Speech to text initialized: $_ready',
-                  ),
-                  Text(
-                    'Status: $_lastStatus',
-                  ),
-                  Text(
-                    'Error: $_lastError',
-                  ),
-                  Divider(),
-                  Text(
                     'Words: $_lastWords',
                   ),
                 ],
@@ -260,8 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: new Text("Reminders"),
               onPressed: () {
                 var route = new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new NextPage(value: _remindersList),
+                  builder: (BuildContext context) => new NextPage(value: _rems),
                 );
                 Navigator.of(context).push(route);
               },
