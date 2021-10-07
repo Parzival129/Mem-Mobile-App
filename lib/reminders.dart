@@ -17,6 +17,7 @@ class _NextPageState extends State<NextPage> {
         title: new Text("Reminders"),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(8),
         children: widget.value.map((e) => Text(e)).toList(),
       ),
     );

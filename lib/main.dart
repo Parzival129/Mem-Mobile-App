@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastError = '';
   List _reminders = [];
   bool _isLoading = false;
-  List _remindersList = [];
+  List<String> _remindersList = [];
   List<String> _rems = [];
 
   String talker = "";
@@ -100,7 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _getSavedList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getStringList("key") != null) _rems = prefs.getStringList("key");
+    if (prefs.getStringList("key") != null)
+      _remindersList = prefs.getStringList("key");
     setState(() {});
   }
 
@@ -138,8 +139,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
     // ? calling the primary analyzation algorithm
     _reminders = await _analyze(_lastWords);
-    _rems = (_remindersList + _reminders).cast<String>();
-    _saveList(_rems);
+    _remindersList.addAll(_reminders.cast<String>());
+    _saveList(_remindersList);
     setState(() {});
   }
 
@@ -267,8 +268,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               child: new Text("Reminders"),
               onPressed: () {
+                _getSavedList();
                 var route = new MaterialPageRoute(
-                  builder: (BuildContext context) => new NextPage(value: _rems),
+                  builder: (BuildContext context) =>
+                      new NextPage(value: _remindersList),
                 );
                 Navigator.of(context).push(route);
               },
