@@ -292,12 +292,14 @@ class _MyHomePageState extends State<MyHomePage> {
             // changes in text
             // are shown here
             Expanded(
-              child: Column(
-                children: [
-                  Divider(),
-                  Text('$_lastWords',
-                      style: TextStyle(height: 5, fontSize: 20)),
-                ],
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Text(
+                  _lastWords,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                ),
               ),
             ),
             Row(
