@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _ready = false;
   bool _listening = false;
   String _lastWords = '';
+  int _minimumWordsForTrans = 10;
   String _lastStatus = '';
   String _lastError = '';
   List _reminders = [];
@@ -174,7 +175,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _transcript = _lastWords;
     _transcriptsList.add(_transcript);
     _saveList(_remindersList);
-    if (_lastWords != "" || _lastWords.split(" ").length < 10) {
+    if (_lastWords != "" &&
+        _lastWords.split(" ").length >= _minimumWordsForTrans) {
       _saveListTrans(_transcriptsList);
     }
     setState(() {});
