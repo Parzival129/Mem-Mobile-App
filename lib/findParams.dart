@@ -43,7 +43,7 @@ String findParams(int i, List words) {
         } else if (words[i + n + 1] == "PM" || words[i + n + 1] == "AM") {
           //return words[i + n] + words[i + n + 1];
           try {
-            if (words[i + n + 2] == "on") {
+            if (words[i + n + 2] == "on" || words[i + n + 2] == "this") {
               return 'at ' +
                   words[i + n] +
                   words[i + n + 1] +
@@ -56,7 +56,7 @@ String findParams(int i, List words) {
             print("YO");
             return "at " + words[i + n] + words[i + n + 1];
           }
-        } else if (words[i + n] == "on") {
+        } else if (words[i + n] == "on" || words[i + n + 2] == "this") {
           // ? Range error exception could maybe nbe fix? like we did last time
           try {
             if (words[i + n + 1] == "Monday" ||
