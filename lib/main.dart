@@ -174,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _transcript = _lastWords;
     _transcriptsList.add(_transcript);
     _saveList(_remindersList);
-    if (_lastWords != "") {
+    if (_lastWords != "" || _lastWords.split(" ").length < 10) {
       _saveListTrans(_transcriptsList);
     }
     setState(() {});
