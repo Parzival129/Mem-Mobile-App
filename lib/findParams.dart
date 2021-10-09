@@ -114,7 +114,7 @@ String findParams(int i, List words) {
           for (var l = i + n; l < words.length; l++) {
             if (words[l] != "on" && words[l] != "at" && words[l] != "and") {
               name.add(words[l]);
-            } else if (words[l] == "and") {
+            } else if (words[l] == "and" || words[l] == "also") {
               return name.join(" ");
             } else {
               try {
