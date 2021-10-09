@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       title: 'SPARQ',
       theme: ThemeData(
         brightness: Brightness.light,
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.purple,
         textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
           headline6: TextStyle(fontSize: 36.0),
@@ -87,6 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<String> _transcriptsList = [];
   List<String> _trans = [];
+  List<String> _conversationList = [];
+
+  String _convName = "";
 
   String talker = "";
   String text = "";
@@ -129,12 +132,29 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  _saveListConv(list) async {
+    SharedPreferences prefsconv = await SharedPreferences.getInstance();
+
+    prefsconv.setStringList("keyConv", list);
+
+    return true;
+  }
+
+  _getSavedConv() async {
+    SharedPreferences prefsconv = await SharedPreferences.getInstance();
+    if (prefsconv.getStringList("keyConv") != null)
+      _conversationList = prefsconv.getStringList("keyConv");
+    setState(() {});
+  }
+
   _eraseAll() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     SharedPreferences prefstrans = await SharedPreferences.getInstance();
+    SharedPreferences prefConv = await SharedPreferences.getInstance();
 
     prefs.clear();
     prefstrans.clear();
+    prefConv.clear();
   }
 
   @override
@@ -145,6 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     _getSavedList();
     _getSavedListTrans();
+    _getSavedConv();
     setState(() {
       _isLoading = false;
     });
@@ -174,12 +195,24 @@ class _MyHomePageState extends State<MyHomePage> {
     _remindersList.addAll(_reminders.cast<String>());
 
     _transcript = _lastWords;
+
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    _convName = date.toString();
+    // 2016-01-25
+    _conversationList.add(_convName);
+
+    _saveListConv(_conversationList);
+
     _transcriptsList.add(_transcript);
     _saveList(_remindersList);
     if (_lastWords != "" &&
         _lastWords.split(" ").length >= _minimumWordsForTrans) {
       _saveListTrans(_transcriptsList);
     }
+
+    print(_remindersList.toString());
+    print(_transcriptsList.toString());
     setState(() {});
   }
 
@@ -289,9 +322,9 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 8,
             ),
             ElevatedButton(
-              onPressed: _setText,
-              child: Text('Submit'),
-            ),
+                onPressed: _setText,
+                child: Text('Submit'),
+                style: ElevatedButton.styleFrom(primary: Colors.red)),
             // changes in text
             // are shown here
             Expanded(
@@ -305,56 +338,47 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.orangeAccent[100],
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20.0),
-                      topLeft: Radius.circular(20.0)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new FloatingActionButton(
+                    heroTag: "micStart",
+                    backgroundColor: !_listening ? Colors.red : Colors.purple,
+                    onPressed: !_listening ? _start : null,
+                    child: Icon(_listening ? Icons.mic : Icons.mic_none)),
+                new FloatingActionButton(
+                    heroTag: "micStop",
+                    backgroundColor: Colors.red,
+                    onPressed: _listening ? _stop : null,
+                    child: Icon(Icons.stop)),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  child: new Text("Reminders"),
+                  onPressed: () {
+                    //_eraseAll();
+                    var route = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new NextPage(value: _remindersList),
+                    );
+                    Navigator.of(context).push(route);
+                  },
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                        onPressed: !_listening ? _start : null,
-                        child: Text('Listen')),
-                    TextButton(
-                        onPressed: _listening ? _stop : null,
-                        child: Text('Stop')),
-                    TextButton(
-                        onPressed: _listening ? _cancel : null,
-                        child: Text('Cancel')),
-                  ],
-                )),
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.orangeAccent[100],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      child: new Text("Reminders"),
-                      onPressed: () {
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              new NextPage(value: _remindersList),
-                        );
-                        Navigator.of(context).push(route);
-                      },
-                    ),
-                    ElevatedButton(
-                      child: new Text("Transcripts"),
-                      onPressed: () {
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              new NextPageTrans(value: _transcriptsList),
-                        );
-                        Navigator.of(context).push(route);
-                      },
-                    )
-                  ],
-                )),
+                ElevatedButton(
+                  child: new Text("Transcripts"),
+                  onPressed: () {
+                    var route = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new NextPageTrans(value: _transcriptsList),
+                    );
+                    Navigator.of(context).push(route);
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),
