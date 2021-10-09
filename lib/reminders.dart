@@ -39,10 +39,6 @@ class _NextPageState extends State<NextPage> {
                   widget.value.removeAt(index);
                   _saveList(widget.value);
                 });
-
-                // Then show a snackbar.
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Reminder deleted')));
               },
               // Show a red background as the item is swiped away.
               background: Container(color: Colors.red),

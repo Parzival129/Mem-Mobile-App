@@ -39,10 +39,6 @@ class _NextPageStateTrans extends State<NextPageTrans> {
                   widget.value.removeAt(index);
                   _saveListTrans(widget.value);
                 });
-
-                // Then show a snackbar.
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Transcript deleted')));
               },
               // Show a red background as the item is swiped away.
               background: Container(color: Colors.red),

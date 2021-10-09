@@ -209,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var i = 0; i < words.length; i++) {
       for (var j = 0; j < verbs.length; j++) {
         if (words[i].toLowerCase() == verbs[j]) {
+          // add more logic for detecting if something is a scheduling statment
           if (verbs[j].toLowerCase() == "remember") {
             print("found " + verbs[j] + " keyword at: " + i.toString());
             var params = findParams(i, words);
