@@ -209,21 +209,32 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var i = 0; i < words.length; i++) {
       for (var j = 0; j < verbs.length; j++) {
         if (words[i].toLowerCase() == verbs[j]) {
-          print("found " + verbs[j] + " keyword at: " + i.toString());
-          var params = findParams(i, words);
-          try {
-            if (words[i - 1].toLowerCase() == "don't" ||
-                words[i - 2].toLowerCase() == "don't" ||
-                words[i - 3].toLowerCase() == "don't" ||
-                words[i - 4].toLowerCase() == "don't") {
-              if (params != "ERROR_OCCURED") {
-                var rems = talker + "> " + "Don't " + verbs[j] + ": " + params;
-                _rem.add(rems);
-                print(talker + "> " + "Don't " + verbs[j] + ": " + params);
-                print("REM: ");
-                print(_rem);
+          if (verbs[j].toLowerCase() == "remember") {
+            print("found " + verbs[j] + " keyword at: " + i.toString());
+            var params = findParams(i, words);
+            try {
+              if (words[i - 1].toLowerCase() == "don't" ||
+                  words[i - 2].toLowerCase() == "don't" ||
+                  words[i - 3].toLowerCase() == "don't" ||
+                  words[i - 4].toLowerCase() == "don't") {
+                if (params != "ERROR_OCCURED") {
+                  var rems =
+                      talker + "> " + "Don't " + verbs[j] + ": " + params;
+                  _rem.add(rems);
+                  print(talker + "> " + "Don't " + verbs[j] + ": " + params);
+                  print("REM: ");
+                  print(_rem);
+                }
+              } else {
+                if (params != "ERROR_OCCURED") {
+                  var rems = talker + "> " + verbs[j] + ": " + params;
+                  _rem.add(rems);
+                  print(talker + "> " + verbs[j] + ": " + params);
+                  print("REM: ");
+                  print(_rem);
+                }
               }
-            } else {
+            } catch (rangeError) {
               if (params != "ERROR_OCCURED") {
                 var rems = talker + "> " + verbs[j] + ": " + params;
                 _rem.add(rems);
@@ -232,15 +243,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 print(_rem);
               }
             }
-          } catch (rangeError) {
-            if (params != "ERROR_OCCURED") {
-              var rems = talker + "> " + verbs[j] + ": " + params;
-              _rem.add(rems);
-              print(talker + "> " + verbs[j] + ": " + params);
-              print("REM: ");
-              print(_rem);
-            }
           }
+          //var params = findParams(i, words);
+
         }
       }
     }
