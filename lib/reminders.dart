@@ -11,21 +11,6 @@ class NextPage extends StatefulWidget {
   _NextPageState createState() => new _NextPageState();
 }
 
-// class _NextPageState extends State<NextPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return new Scaffold(
-//       appBar: new AppBar(
-//         title: new Text("Reminders"),
-//       ),
-//       body: ListView(
-//         padding: const EdgeInsets.all(8),
-//         children: widget.value.map((e) => Text(e)).toList(),
-//       ),
-//     );
-//   }
-// }
-
 class _NextPageState extends State<NextPage> {
   List<String> _remindersList = [];
 
@@ -57,7 +42,7 @@ class _NextPageState extends State<NextPage> {
 
                 // Then show a snackbar.
                 ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('$item dismissed')));
+                    .showSnackBar(SnackBar(content: Text('Reminder deleted')));
               },
               // Show a red background as the item is swiped away.
               background: Container(color: Colors.red),
@@ -75,19 +60,3 @@ class _NextPageState extends State<NextPage> {
     );
   }
 }
-
-// ListView.builder(
-//         itemCount: titles.length,
-//         itemBuilder: (context, index) {
-//           return Card(
-//               child: ListTile(
-//                   title: Text(titles[index]),
-//                   subtitle: Text(subtitles[index]),
-//                   leading: CircleAvatar(
-//                       backgroundImage: NetworkImage(
-//                           "https://images.unsplash.com/photo-1547721064-da6cfb341d50")),
-//                   trailing: Icon(icons[index])));
-//         });
-
-
-// children: widget.value.map((e) => Text(e)).toList(),

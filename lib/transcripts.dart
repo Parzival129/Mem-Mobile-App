@@ -41,8 +41,8 @@ class _NextPageStateTrans extends State<NextPageTrans> {
                 });
 
                 // Then show a snackbar.
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('$item dismissed')));
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Transcript deleted')));
               },
               // Show a red background as the item is swiped away.
               background: Container(color: Colors.red),

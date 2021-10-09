@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _setText() {
     setState(() {
+      talker = talker + " ";
       text = talker;
       print("Talker set to: " + talker);
     });
