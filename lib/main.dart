@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final SpeechToText _speechToText = SpeechToText();
   bool _ready = false;
   bool _listening = false;
-  String _lastWords = '';
+  String _lastWords = "you haven't said anything yet";
   int _minimumWordsForTrans = 10;
   String _lastStatus = '';
   String _lastError = '';
@@ -266,16 +266,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(onPressed: _start, child: Text('Listen')),
-                TextButton(
-                    onPressed: _listening ? _stop : null, child: Text('Stop')),
-                TextButton(
-                    onPressed: _listening ? _cancel : null,
-                    child: Text('Cancel')),
-              ],
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.orangeAccent[100],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(15),
@@ -305,31 +299,56 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  child: new Text("Reminders"),
-                  onPressed: () {
-                    var route = new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new NextPage(value: _remindersList),
-                    );
-                    Navigator.of(context).push(route);
-                  },
+            Container(
+                decoration: BoxDecoration(
+                  color: Colors.orangeAccent[100],
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20.0),
+                      topLeft: Radius.circular(20.0)),
                 ),
-                ElevatedButton(
-                  child: new Text("Transcripts"),
-                  onPressed: () {
-                    var route = new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new NextPageTrans(value: _transcriptsList),
-                    );
-                    Navigator.of(context).push(route);
-                  },
-                )
-              ],
-            )
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                        onPressed: !_listening ? _start : null,
+                        child: Text('Listen')),
+                    TextButton(
+                        onPressed: _listening ? _stop : null,
+                        child: Text('Stop')),
+                    TextButton(
+                        onPressed: _listening ? _cancel : null,
+                        child: Text('Cancel')),
+                  ],
+                )),
+            Container(
+                decoration: BoxDecoration(
+                  color: Colors.orangeAccent[100],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      child: new Text("Reminders"),
+                      onPressed: () {
+                        var route = new MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              new NextPage(value: _remindersList),
+                        );
+                        Navigator.of(context).push(route);
+                      },
+                    ),
+                    ElevatedButton(
+                      child: new Text("Transcripts"),
+                      onPressed: () {
+                        var route = new MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              new NextPageTrans(value: _transcriptsList),
+                        );
+                        Navigator.of(context).push(route);
+                      },
+                    )
+                  ],
+                )),
           ],
         ),
       ),

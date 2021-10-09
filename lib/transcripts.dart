@@ -31,7 +31,7 @@ class _NextPageStateTrans extends State<NextPageTrans> {
       body: ListView.builder(
           itemCount: widget.value.length,
           itemBuilder: (context, index) {
-            final item = widget.value[index].replaceAll("> ", "");
+            final item = widget.value[index];
             return Dismissible(
               key: Key(item),
               onDismissed: (direction) {
