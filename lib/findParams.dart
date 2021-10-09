@@ -17,6 +17,7 @@ String findParams(int i, List words) {
 
         print("THE WORD IS: " + words[i + n]);
         // If the word after the subject is at (or it since it can sometimes be missheard as it)
+        print("hHEERE");
         if (words[i + n + 1] == "at" || words[i + n + 1] == "it") {
           if (words[i + n + 3] == "PM" || words[i + n + 3] == "AM") {
             try {
@@ -56,7 +57,7 @@ String findParams(int i, List words) {
             print("YO");
             return "at " + words[i + n] + words[i + n + 1];
           }
-        } else if (words[i + n] == "on" || words[i + n + 2] == "this") {
+        } else if (words[i + n] == "on" || words[i + n] == "this") {
           // ? Range error exception could maybe nbe fix? like we did last time
           try {
             if (words[i + n + 1] == "Monday" ||
@@ -98,7 +99,8 @@ String findParams(int i, List words) {
           } catch (rangeError) {
             return "on " + words[i + n + 1];
           }
-        } else if (words[i + n] == "around" || words[i + n] == "precisley") {
+        }
+        if (words[i + n] == "around" || words[i + n] == "precisley") {
           if (words[i + n + 2] == "PM" || words[i + n + 2] == "AM") {
             return words[i + n] +
                 " " +
@@ -110,11 +112,13 @@ String findParams(int i, List words) {
           }
         }
         List name = [];
+        print("got herer bro2");
         try {
+          print("got herer bro");
           for (var l = i + n; l < words.length; l++) {
             if (words[l] != "on" && words[l] != "at" && words[l] != "and") {
               name.add(words[l]);
-            } else if (words[l] == "and" || words[l] == "also") {
+            } else if (words[l] == "and") {
               return name.join(" ");
             } else {
               try {
