@@ -240,7 +240,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ////////////////////////
     for (var i = 0; i < words.length; i++) {
+      // words.length changes O(n)?
       for (var j = 0; j < verbs.length; j++) {
+        // verbs.length doesn't change
         if (words[i].toLowerCase() == verbs[j]) {
           // add more logic for detecting if something is a scheduling statment
           if (verbs[j].toLowerCase() == "remember") {
@@ -359,7 +361,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   child: new Text("Reminders"),
                   onPressed: () {
-                    //_eraseAll();
                     var route = new MaterialPageRoute(
                       builder: (BuildContext context) =>
                           new NextPage(value: _remindersList),
