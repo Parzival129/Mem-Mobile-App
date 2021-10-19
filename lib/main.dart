@@ -5,6 +5,7 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'dart:async';
 
 // Import findParams function
@@ -20,6 +21,8 @@ import 'transcripts.dart';
 void main() {
   runApp(MyApp());
 }
+
+// API usage: print(await http.read(Uri.parse('https://tc32fzdoz9.execute-api.us-east-2.amazonaws.com/Prod/hello/')));
 
 // MyApp widget that directs to homepage
 class MyApp extends StatelessWidget {
@@ -213,12 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     print(_remindersList.toString());
     print(_transcriptsList.toString());
-    setState(() {});
-  }
-
-  void _cancel() async {
-    _speechToText.cancel();
-    _listening = false;
     setState(() {});
   }
 
