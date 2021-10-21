@@ -47,11 +47,6 @@ class _NextPageState extends State<NextPage> {
                   trailing: Icon(Icons.access_time),
                   onTap: () => widget.value.removeAt(index)),
             );
-            return Card(
-                child: ListTile(
-                    title: Text(widget.value[index].replaceAll("> ", "")),
-                    trailing: Icon(Icons.access_time),
-                    onTap: () => widget.value.removeAt(index)));
           }),
     );
   }
